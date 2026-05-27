@@ -1,0 +1,23 @@
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+xgboost>=1.7
+shap>=0.44
+matplotlib>=3.7
+seaborn>=0.12
+plotly>=5.18
+streamlit>=1.30
+streamlit-folium>=0.18
+folium>=0.15
+geopandas>=0.14
+pyarrow>=14
+requests>=2.31
+joblib>=1.3
+
+# Optional — only needed if you're using CEDA HadUK-Grid daily NetCDFs
+xarray>=2023.12
+netCDF4>=1.6
+dask>=2024.1
+rasterio>=1.3
+rioxarray>=0.15
+

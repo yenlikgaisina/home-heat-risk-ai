@@ -1,0 +1,101 @@
+lad_code,lad_name,tenure,households
+E06000018,Nottingham,Total: All households,124743
+E06000018,Nottingham,Owned: Owns outright,27940
+E06000018,Nottingham,Owned: Owns with a mortgage or loan,28375
+E06000018,Nottingham,Shared ownership: Shared ownership,609
+E06000018,Nottingham,Social rented: Rents from council or Local Authority,22854
+E06000018,Nottingham,Social rented: Other social rented,8942
+E06000018,Nottingham,Private rented: Private landlord or letting agency,33039
+E06000018,Nottingham,Private rented: Other private rented,2649
+E06000018,Nottingham,Lives rent free,335
+E07000170,Ashfield,Total: All households,54509
+E07000170,Ashfield,Owned: Owns outright,19484
+E07000170,Ashfield,Owned: Owns with a mortgage or loan,17266
+E07000170,Ashfield,Shared ownership: Shared ownership,221
+E07000170,Ashfield,Social rented: Rents from council or Local Authority,6135
+E07000170,Ashfield,Social rented: Other social rented,1995
+E07000170,Ashfield,Private rented: Private landlord or letting agency,8261
+E07000170,Ashfield,Private rented: Other private rented,1036
+E07000170,Ashfield,Lives rent free,111
+E07000171,Bassetlaw,Total: All households,51458
+E07000171,Bassetlaw,Owned: Owns outright,19442
+E07000171,Bassetlaw,Owned: Owns with a mortgage or loan,15672
+E07000171,Bassetlaw,Shared ownership: Shared ownership,217
+E07000171,Bassetlaw,Social rented: Rents from council or Local Authority,6124
+E07000171,Bassetlaw,Social rented: Other social rented,1573
+E07000171,Bassetlaw,Private rented: Private landlord or letting agency,7210
+E07000171,Bassetlaw,Private rented: Other private rented,1141
+E07000171,Bassetlaw,Lives rent free,79
+E07000172,Broxtowe,Total: All households,48362
+E07000172,Broxtowe,Owned: Owns outright,19301
+E07000172,Broxtowe,Owned: Owns with a mortgage or loan,15153
+E07000172,Broxtowe,Shared ownership: Shared ownership,151
+E07000172,Broxtowe,Social rented: Rents from council or Local Authority,4029
+E07000172,Broxtowe,Social rented: Other social rented,1308
+E07000172,Broxtowe,Private rented: Private landlord or letting agency,7409
+E07000172,Broxtowe,Private rented: Other private rented,946
+E07000172,Broxtowe,Lives rent free,65
+E07000173,Gedling,Total: All households,51551
+E07000173,Gedling,Owned: Owns outright,20649
+E07000173,Gedling,Owned: Owns with a mortgage or loan,17417
+E07000173,Gedling,Shared ownership: Shared ownership,270
+E07000173,Gedling,Social rented: Rents from council or Local Authority,2084
+E07000173,Gedling,Social rented: Other social rented,2911
+E07000173,Gedling,Private rented: Private landlord or letting agency,7136
+E07000173,Gedling,Private rented: Other private rented,1055
+E07000173,Gedling,Lives rent free,29
+E07000174,Mansfield,Total: All households,48031
+E07000174,Mansfield,Owned: Owns outright,16668
+E07000174,Mansfield,Owned: Owns with a mortgage or loan,14088
+E07000174,Mansfield,Shared ownership: Shared ownership,214
+E07000174,Mansfield,Social rented: Rents from council or Local Authority,5738
+E07000174,Mansfield,Social rented: Other social rented,2127
+E07000174,Mansfield,Private rented: Private landlord or letting agency,8156
+E07000174,Mansfield,Private rented: Other private rented,909
+E07000174,Mansfield,Lives rent free,131
+E07000175,Newark and Sherwood,Total: All households,53332
+E07000175,Newark and Sherwood,Owned: Owns outright,20525
+E07000175,Newark and Sherwood,Owned: Owns with a mortgage or loan,16268
+E07000175,Newark and Sherwood,Shared ownership: Shared ownership,437
+E07000175,Newark and Sherwood,Social rented: Rents from council or Local Authority,5133
+E07000175,Newark and Sherwood,Social rented: Other social rented,2280
+E07000175,Newark and Sherwood,Private rented: Private landlord or letting agency,7476
+E07000175,Newark and Sherwood,Private rented: Other private rented,1148
+E07000175,Newark and Sherwood,Lives rent free,65
+E07000176,Rushcliffe,Total: All households,49883
+E07000176,Rushcliffe,Owned: Owns outright,20508
+E07000176,Rushcliffe,Owned: Owns with a mortgage or loan,17253
+E07000176,Rushcliffe,Shared ownership: Shared ownership,524
+E07000176,Rushcliffe,Social rented: Rents from council or Local Authority,886
+E07000176,Rushcliffe,Social rented: Other social rented,3387
+E07000176,Rushcliffe,Private rented: Private landlord or letting agency,6450
+E07000176,Rushcliffe,Private rented: Other private rented,862
+E07000176,Rushcliffe,Lives rent free,13
+E09000001,City of London,Total: All households,4914
+E09000001,City of London,Owned: Owns outright,1114
+E09000001,City of London,Owned: Owns with a mortgage or loan,680
+E09000001,City of London,Shared ownership: Shared ownership,12
+E09000001,City of London,Social rented: Rents from council or Local Authority,449
+E09000001,City of London,Social rented: Other social rented,281
+E09000001,City of London,Private rented: Private landlord or letting agency,2064
+E09000001,City of London,Private rented: Other private rented,309
+E09000001,City of London,Lives rent free,5
+E09000002,Barking and Dagenham,Total: All households,73902
+E09000002,Barking and Dagenham,Owned: Owns outright,11130
+E09000002,Barking and Dagenham,Owned: Owns with a mortgage or loan,20189
+E09000002,Barking and Dagenham,Shared ownership: Shared ownership,1274
+E09000002,Barking and Dagenham,Social rented: Rents from council or Local Authority,18077
+E09000002,Barking and Dagenham,Social rented: Other social rented,5196
+E09000002,Barking and Dagenham,Private rented: Private landlord or letting agency,16443
+E09000002,Barking and Dagenham,Private rented: Other private rented,1447
+E09000002,Barking and Dagenham,Lives rent free,146
+E09000003,Barnet,Total: All households,148917
+E09000003,Barnet,Owned: Owns outright,39083
+E09000003,Barnet,Owned: Owns with a mortgage or loan,39324
+E09000003,Barnet,Shared ownership: Shared ownership,1633
+E09000003,Barnet,Social rented: Rents from council or Local Authority,10030
+E09000003,Barnet,Social rented: Other social rented,10004
+E09000003,Barnet,Private rented: Private landlord or letting agency,45180
+E09000003,Barnet,Private rented: Other private rented,3525
+E09000003,Barnet,Lives rent free,138
+E09000004,Bexley,Total: All households,95300

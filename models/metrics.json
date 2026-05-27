@@ -1,0 +1,23 @@
+{
+  "train_accuracy": 1.0,
+  "test_accuracy": 0.9090909090909091,
+  "feature_importances": {
+    "summer_tmax_mean": 0.00869098522525272,
+    "summer_tmax_p95": 0.004440076475860572,
+    "summer_tmin_mean": 0.005194398118492644,
+    "summer_tmin_p95": 0.005919052895318451,
+    "warming_since_baseline_c": 0.002037415462462924,
+    "share_flats": 0.25667604838807434,
+    "share_epc_d_or_worse": 0.1283425139665745,
+    "share_rented_private": 0.3437799308625572,
+    "share_rented_social": 0.15475113755029046,
+    "share_65plus": 0.0,
+    "total_hh": 0.09016844105511633
+  },
+  "n_train": 30,
+  "n_test": 11,
+  "classes": [
+    "High",
+    "Medium"
+  ]
+}

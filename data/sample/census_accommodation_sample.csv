@@ -1,0 +1,101 @@
+lad_code,lad_name,accommodation_type,households
+E06000018,Nottingham,Total,124745
+E06000018,Nottingham,Detached,19464
+E06000018,Nottingham,Semi-detached,41519
+E06000018,Nottingham,Terraced,34147
+E06000018,Nottingham,In a purpose-built block of flats or tenement,23009
+E06000018,Nottingham,"Part of a converted or shared house, including bedsits",3772
+E06000018,Nottingham,"Part of another converted building, for example, former school, church or warehouse",1543
+E06000018,Nottingham,"In a commercial building, for example, in an office building, hotel or over a shop",1137
+E06000018,Nottingham,A caravan or other mobile or temporary structure,154
+E07000170,Ashfield,Total,54508
+E07000170,Ashfield,Detached,16512
+E07000170,Ashfield,Semi-detached,22942
+E07000170,Ashfield,Terraced,10598
+E07000170,Ashfield,In a purpose-built block of flats or tenement,3469
+E07000170,Ashfield,"Part of a converted or shared house, including bedsits",419
+E07000170,Ashfield,"Part of another converted building, for example, former school, church or warehouse",144
+E07000170,Ashfield,"In a commercial building, for example, in an office building, hotel or over a shop",373
+E07000170,Ashfield,A caravan or other mobile or temporary structure,51
+E07000171,Bassetlaw,Total,51458
+E07000171,Bassetlaw,Detached,18078
+E07000171,Bassetlaw,Semi-detached,21301
+E07000171,Bassetlaw,Terraced,8111
+E07000171,Bassetlaw,In a purpose-built block of flats or tenement,2824
+E07000171,Bassetlaw,"Part of a converted or shared house, including bedsits",414
+E07000171,Bassetlaw,"Part of another converted building, for example, former school, church or warehouse",191
+E07000171,Bassetlaw,"In a commercial building, for example, in an office building, hotel or over a shop",270
+E07000171,Bassetlaw,A caravan or other mobile or temporary structure,269
+E07000172,Broxtowe,Total,48363
+E07000172,Broxtowe,Detached,17519
+E07000172,Broxtowe,Semi-detached,17392
+E07000172,Broxtowe,Terraced,7816
+E07000172,Broxtowe,In a purpose-built block of flats or tenement,4524
+E07000172,Broxtowe,"Part of a converted or shared house, including bedsits",436
+E07000172,Broxtowe,"Part of another converted building, for example, former school, church or warehouse",256
+E07000172,Broxtowe,"In a commercial building, for example, in an office building, hotel or over a shop",332
+E07000172,Broxtowe,A caravan or other mobile or temporary structure,88
+E07000173,Gedling,Total,51552
+E07000173,Gedling,Detached,20119
+E07000173,Gedling,Semi-detached,17741
+E07000173,Gedling,Terraced,7672
+E07000173,Gedling,In a purpose-built block of flats or tenement,4902
+E07000173,Gedling,"Part of a converted or shared house, including bedsits",423
+E07000173,Gedling,"Part of another converted building, for example, former school, church or warehouse",161
+E07000173,Gedling,"In a commercial building, for example, in an office building, hotel or over a shop",312
+E07000173,Gedling,A caravan or other mobile or temporary structure,222
+E07000174,Mansfield,Total,48031
+E07000174,Mansfield,Detached,14594
+E07000174,Mansfield,Semi-detached,20776
+E07000174,Mansfield,Terraced,8028
+E07000174,Mansfield,In a purpose-built block of flats or tenement,3592
+E07000174,Mansfield,"Part of a converted or shared house, including bedsits",472
+E07000174,Mansfield,"Part of another converted building, for example, former school, church or warehouse",164
+E07000174,Mansfield,"In a commercial building, for example, in an office building, hotel or over a shop",276
+E07000174,Mansfield,A caravan or other mobile or temporary structure,129
+E07000175,Newark and Sherwood,Total,53331
+E07000175,Newark and Sherwood,Detached,20332
+E07000175,Newark and Sherwood,Semi-detached,19829
+E07000175,Newark and Sherwood,Terraced,8390
+E07000175,Newark and Sherwood,In a purpose-built block of flats or tenement,3355
+E07000175,Newark and Sherwood,"Part of a converted or shared house, including bedsits",413
+E07000175,Newark and Sherwood,"Part of another converted building, for example, former school, church or warehouse",395
+E07000175,Newark and Sherwood,"In a commercial building, for example, in an office building, hotel or over a shop",267
+E07000175,Newark and Sherwood,A caravan or other mobile or temporary structure,350
+E07000176,Rushcliffe,Total,49884
+E07000176,Rushcliffe,Detached,23373
+E07000176,Rushcliffe,Semi-detached,15394
+E07000176,Rushcliffe,Terraced,5600
+E07000176,Rushcliffe,In a purpose-built block of flats or tenement,3810
+E07000176,Rushcliffe,"Part of a converted or shared house, including bedsits",877
+E07000176,Rushcliffe,"Part of another converted building, for example, former school, church or warehouse",182
+E07000176,Rushcliffe,"In a commercial building, for example, in an office building, hotel or over a shop",262
+E07000176,Rushcliffe,A caravan or other mobile or temporary structure,386
+E09000001,City of London,Total,4914
+E09000001,City of London,Detached,7
+E09000001,City of London,Semi-detached,15
+E09000001,City of London,Terraced,78
+E09000001,City of London,In a purpose-built block of flats or tenement,4273
+E09000001,City of London,"Part of a converted or shared house, including bedsits",66
+E09000001,City of London,"Part of another converted building, for example, former school, church or warehouse",272
+E09000001,City of London,"In a commercial building, for example, in an office building, hotel or over a shop",203
+E09000001,City of London,A caravan or other mobile or temporary structure,0
+E09000002,Barking and Dagenham,Total,73899
+E09000002,Barking and Dagenham,Detached,3751
+E09000002,Barking and Dagenham,Semi-detached,16358
+E09000002,Barking and Dagenham,Terraced,30754
+E09000002,Barking and Dagenham,In a purpose-built block of flats or tenement,20451
+E09000002,Barking and Dagenham,"Part of a converted or shared house, including bedsits",1577
+E09000002,Barking and Dagenham,"Part of another converted building, for example, former school, church or warehouse",192
+E09000002,Barking and Dagenham,"In a commercial building, for example, in an office building, hotel or over a shop",756
+E09000002,Barking and Dagenham,A caravan or other mobile or temporary structure,60
+E09000003,Barnet,Total,148917
+E09000003,Barnet,Detached,15046
+E09000003,Barnet,Semi-detached,40919
+E09000003,Barnet,Terraced,22155
+E09000003,Barnet,In a purpose-built block of flats or tenement,54446
+E09000003,Barnet,"Part of a converted or shared house, including bedsits",13136
+E09000003,Barnet,"Part of another converted building, for example, former school, church or warehouse",1053
+E09000003,Barnet,"In a commercial building, for example, in an office building, hotel or over a shop",1982
+E09000003,Barnet,A caravan or other mobile or temporary structure,180
+E09000004,Bexley,Total,95298
