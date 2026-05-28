@@ -15,16 +15,26 @@ A climate adaptation data science project that estimates UK home overheating ris
 
 I've been explicit because honesty matters more here than polish.
 
-| Component | Source | Real or synthesized |
+| Component | Source | Status |
 | --- | --- | --- |
 | Daily/monthly Tmax & Tmin | Met Office regional climate series (open) | **Real** |
 | Grid carbon intensity | NESO Carbon Intensity API (open) | **Real** |
 | Housing tenure & accommodation type | ONS Census 2021 via NOMIS (open) | **Real** |
 | Population density, vulnerable age share | ONS Census 2021 via NOMIS | **Real** |
-| EPC ratings & building age band | Synthesized from Census proxies + national EPC distribution priors | **Synthesized** (the EPC bulk service requires registration) |
+| EPC ratings (band distribution per LAD) | MHCLG EPC bulk service + synthesised fallback | **Hybrid** — real where coverage is sufficient, synthesised fallback elsewhere |
 | Indoor temperature exceedance | Not used — no public area-level data | N/A |
 
-If you obtain EPC bulk data (register at [epc.opendatacommunities.org](https://epc.opendatacommunities.org/)), drop the CSV into `data/raw/epc/` and re-run `python -m src.clean_epc` to replace the synthesized layer.
+### EPC: hybrid layer
+
+The EPC band distribution is assembled per LAD and labelled in the `epc_source` column:
+
+- `real` — real EPC certificates from MHCLG, deduped to the latest certificate per UPRN, with ≥ 500 certificates in the LAD.
+- `synthesized_fallback_low_coverage` — the LAD is in the bulk file but has < 500 certificates after dedup; the empirical distribution is too noisy, so a synthesised prior is used. The real count is preserved in `epc_certificates` for transparency.
+- `synthesized` — the LAD is out of scope for the bulk service (Scotland, NI). A synthesised prior is used; `epc_certificates = 0`.
+
+The dashboard surfaces this provenance on the Overview, Housing vulnerability, and Cooling recommendation pages so users can tell which signals are measured and which are inferred. Threshold and synthesis formulas live in [`src/clean_epc.py`](src/clean_epc.py); detailed rationale is in [`docs/methodology.md`](docs/methodology.md).
+
+To opt in to real EPC: register at [epc.opendatacommunities.org](https://epc.opendatacommunities.org/), download the bulk CSV, drop it at `data/raw/epc/all_certificates.csv`, and re-run `python -m src.clean_epc` (or `python -m src.risk_model --train` which calls it end-to-end). LADs not in your CSV automatically fall back to the synthesised prior — no further config needed.
 
 ## Quick start
 
@@ -111,7 +121,7 @@ For each area I compute a **weighted overheating risk score** from six factor fa
 
 ## Limitations (read before relying on this)
 
-- Synthesized EPC layer means area-level building risk is a **prior**, not measurement.
+- The EPC layer is **hybrid**: real bulk data for the LADs with ≥ 500 certificates, synthesised priors for the rest. The `epc_source` column flags each LAD, and the dashboard exposes it — but for LADs flagged `synthesized` or `synthesized_fallback_low_coverage`, the building-risk signal is a prior, not a measurement.
 - No indoor temperature data — risk is an exposure proxy, not a verified overheating prediction.
 - ML model is trained on an index-derived target; it learns the index by construction. It's useful for SHAP interpretability and as a downstream API, but it does not validate the index against ground truth.
 - This is a portfolio project, not an operational tool. See `docs/responsible_ai_statement.md`.

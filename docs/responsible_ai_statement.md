@@ -4,7 +4,7 @@ This is a portfolio data-science project, not an operational tool. Read this bef
 
 ## What this is
 
-- A documented, auditable overheating risk index built from open Met Office and ONS Census data, plus a synthesized EPC layer.
+- A documented, auditable overheating risk index built from open Met Office and ONS Census data, plus a **hybrid EPC layer** (real MHCLG bulk certificates where coverage is sufficient, a synthesised prior elsewhere).
 - A rules-based recommendation engine — explicitly not an LLM. The rules live in `src/recommendations.py` and can be diffed under version control.
 - A Random Forest model trained against the index-derived tier, used only for feature attribution.
 
@@ -12,7 +12,7 @@ This is a portfolio data-science project, not an operational tool. Read this bef
 
 - This is not a diagnosis of any individual home. It estimates *area-level* exposure risk.
 - It does not validate against real indoor temperatures — no public dataset of indoor heat exposure exists at this granularity in the UK.
-- The EPC distribution layer is synthesized, not measured. Treat housing-quality signals as informed priors, not facts.
+- The EPC distribution layer is **hybrid**. Where the MHCLG bulk service has sufficient coverage (≥ 500 certificates per LAD after deduplication), we use real empirical band shares (`epc_source = 'real'`). Where coverage is too low or absent, we use a synthesised prior built from national EPC distributions adjusted for flat share and tenure (`epc_source = 'synthesized_fallback_low_coverage'` or `'synthesized'`). The dashboard surfaces this per-LAD so users can tell which signals are measured and which are inferred. Treat synthesised-source housing-quality signals as informed priors, not facts. See `docs/methodology.md` for the threshold logic.
 
 ## Fairness considerations
 

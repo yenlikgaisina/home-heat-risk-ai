@@ -87,7 +87,8 @@ page = st.sidebar.radio(
 st.sidebar.markdown("---")
 st.sidebar.caption(
     "Data: Met Office regional series · ONS Census 2021 (NOMIS) · NESO Carbon "
-    "Intensity API. EPC layer is synthesized — see README."
+    "Intensity API. EPC: hybrid — real bulk data where coverage is sufficient, "
+    "synthesised fallback otherwise. See data dictionary."
 )
 
 
@@ -108,6 +109,40 @@ if page == "Overview":
     c2.metric("Mean risk score", f"{risk['overheating_risk_score'].mean():.1f}")
     c3.metric("LADs in High tier", int((risk["risk_tier"] == "High").sum()))
     c4.metric("LADs in Severe tier", int((risk["risk_tier"] == "Severe").sum()))
+
+    # EPC provenance summary — surfaces hybrid coverage up-front.
+    epc_counts = risk["epc_source"].value_counts()
+    n_real = int(epc_counts.get("real", 0))
+    n_low = int(epc_counts.get("synthesized_fallback_low_coverage", 0))
+    n_syn = int(epc_counts.get("synthesized", 0))
+    n_total = len(risk)
+    st.caption(
+        f"**EPC source:** real for {n_real}/{n_total} LADs · "
+        f"synthesised fallback for {n_low + n_syn} "
+        f"({n_low} low coverage, {n_syn} out of scope). "
+        "The EPC layer is *hybrid* — see Methodology."
+    )
+    with st.expander("How EPC coverage works"):
+        st.markdown(
+            """
+            Each local authority's EPC band distribution comes from one of three sources:
+
+            - **`real`** — real EPC certificates from the MHCLG bulk service,
+              deduplicated to the latest certificate per UPRN, with **≥ 500**
+              certificates in the LAD.
+            - **`synthesized_fallback_low_coverage`** — the LAD appears in the
+              bulk file but has **< 500 certificates**, so the empirical
+              distribution is too noisy to trust. We fall back to a synthesised
+              prior built from national EPC priors adjusted for flat share and
+              private-rented share.
+            - **`synthesized`** — the LAD is not covered by the EPC bulk service
+              (Scotland and Northern Ireland). Same synthesised prior is used.
+
+            The threshold (`MIN_REAL_EPC_CERTS = 500` in `src/clean_epc.py`)
+            keeps band-share sampling error under ≈ 2 percentage points even
+            for the smallest realistic band (~1 % A-rated stock).
+            """
+        )
 
     st.markdown("### Top 15 LADs by overheating risk")
     top = risk.sort_values("overheating_risk_score", ascending=False).head(15)
@@ -189,17 +224,31 @@ elif page == "Housing vulnerability":
         fig = px.scatter(
             risk, x="share_epc_d_or_worse", y="share_65plus",
             color="risk_tier", color_discrete_map=TIER_COLORS,
+            symbol="epc_source",
+            symbol_map={
+                "real": "circle",
+                "synthesized_fallback_low_coverage": "diamond",
+                "synthesized": "square",
+            },
             size="total_hh", hover_name="lad_name",
-            labels={"share_epc_d_or_worse": "Share with EPC D or worse (synthesized)",
+            hover_data={"epc_certificates": True, "epc_source": True,
+                         "total_hh": False, "risk_tier": False},
+            labels={"share_epc_d_or_worse": "Share with EPC D or worse (hybrid)",
                      "share_65plus": "Share aged 65+"},
         )
         fig.update_layout(height=480)
         st.plotly_chart(fig, use_container_width=True)
+        st.caption(
+            "Marker shape encodes EPC provenance: "
+            "● real EPC · ◆ synthesised fallback (< 500 certs) · "
+            "■ no EPC bulk coverage. Hover for certificate count."
+        )
 
     st.markdown("### Per-LAD detail")
     show = risk.sort_values("overheating_risk_score", ascending=False)[[
         "lad_name", "share_flats", "share_rented_private", "share_65plus",
-        "share_epc_d_or_worse", "overheating_risk_score", "risk_tier",
+        "share_epc_d_or_worse", "epc_source", "epc_certificates",
+        "overheating_risk_score", "risk_tier",
     ]]
     st.dataframe(show, use_container_width=True, hide_index=True)
 
@@ -242,6 +291,21 @@ elif page == "Cooling recommendation":
     area_row = risk[risk["lad_name"] == lad].iloc[0]
     area_tier = area_row["risk_tier"]
     st.info(f"Area risk tier: **{area_tier}** (score {area_row['overheating_risk_score']:.1f})")
+
+    # EPC provenance disclosure — silent when data is real, gentle when not.
+    epc_src = area_row.get("epc_source", "real")
+    epc_n = int(area_row.get("epc_certificates", 0))
+    if epc_src == "synthesized_fallback_low_coverage":
+        st.caption(
+            f"ℹ️ EPC indicator for **{lad}** is a statistical prior — only "
+            f"{epc_n:,} certificates in the bulk file. Treat the area EPC mix "
+            "as approximate."
+        )
+    elif epc_src == "synthesized":
+        st.caption(
+            f"ℹ️ **{lad}** has no EPC bulk coverage; the EPC mix shown is a "
+            "synthesised prior from housing and tenure shares."
+        )
 
     c1, c2, c3 = st.columns(3)
     with c1:

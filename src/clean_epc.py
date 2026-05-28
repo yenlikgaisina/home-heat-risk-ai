@@ -25,6 +25,15 @@ PROCESSED = ROOT / "data" / "processed"
 EPC_CSV = RAW / "epc" / "all_certificates.csv"
 EPC_BANDS = ["A", "B", "C", "D", "E", "F", "G"]
 
+# Minimum number of real EPC certificates (post-dedup) needed for a LAD's
+# real EPC distribution to be considered statistically meaningful. LADs
+# below this threshold fall back to the synthesised distribution, tagged
+# with epc_source='synthesized_fallback_low_coverage' so downstream
+# consumers can flag them. 500 is a rule of thumb: it keeps band-share
+# sampling error under ~2 pp for the smallest realistic band (~1% A-rated
+# stock) and matches MHCLG's own coverage caveats.
+MIN_REAL_EPC_CERTS = 500
+
 # National EPC distribution priors for England 2024 (rounded percentages of
 # domestic dwellings — sourced from MHCLG English Housing Survey-derived
 # headline figures). Documented in docs/data_dictionary.md.
@@ -229,20 +238,49 @@ def build_housing_features() -> pd.DataFrame:
     syn_df["epc_source"] = "synthesized"
     syn_df["epc_certificates"] = 0
 
-    # Real EPC distribution per LAD (England + Wales only)
+    # Real EPC distribution per LAD (England + Wales only). Hybrid overlay:
+    #   epc_source = 'real'                                 — sufficient real coverage
+    #   epc_source = 'synthesized_fallback_low_coverage'    — real data exists but
+    #                                                         < MIN_REAL_EPC_CERTS,
+    #                                                         distribution is too
+    #                                                         noisy to trust → use
+    #                                                         synthesized prior
+    #   epc_source = 'synthesized'                          — no real data at all
+    #                                                         (Scotland/NI not in
+    #                                                         the EPC bulk service)
     if EPC_CSV.exists():
         print(f"Loading real EPC bulk file: {EPC_CSV}")
         real_df = load_real_epc_distribution()
-        real_df["epc_source"] = "real"
-        real_lads = set(real_df["lad_code"])
-        # Overlay: keep real where available, synthesized elsewhere
-        epc_df = pd.concat(
-            [real_df, syn_df[~syn_df["lad_code"].isin(real_lads)]],
-            ignore_index=True,
+        # Split real_df by coverage threshold
+        is_sufficient = real_df["epc_certificates"] >= MIN_REAL_EPC_CERTS
+        real_ok = real_df[is_sufficient].copy()
+        real_ok["epc_source"] = "real"
+        real_low = real_df[~is_sufficient].copy()
+        # For low-coverage LADs, swap real distribution for the synthesized one
+        # but keep the real certificate count so the dashboard can show "only N certs".
+        low_codes = set(real_low["lad_code"])
+        syn_for_low = (
+            syn_df[syn_df["lad_code"].isin(low_codes)]
+            .drop(columns=["epc_certificates", "epc_source"])
+            .copy()
         )
+        # carry forward the (small) real certificate count
+        syn_for_low = syn_for_low.merge(
+            real_low[["lad_code", "epc_certificates"]], on="lad_code", how="left"
+        )
+        syn_for_low["epc_source"] = "synthesized_fallback_low_coverage"
+
+        # LADs with no real data at all (set difference)
+        all_real_codes = set(real_df["lad_code"])
+        syn_only = syn_df[~syn_df["lad_code"].isin(all_real_codes)].copy()
+        # syn_only already has epc_source='synthesized' and epc_certificates=0
+
+        epc_df = pd.concat([real_ok, syn_for_low, syn_only], ignore_index=True)
         print(
-            f"EPC source: real for {len(real_lads)} LADs, "
-            f"synthesized for {len(syn_df) - syn_df['lad_code'].isin(real_lads).sum()} LADs"
+            f"EPC source: real for {len(real_ok)} LADs, "
+            f"synthesized_fallback_low_coverage for {len(syn_for_low)} LADs "
+            f"(< {MIN_REAL_EPC_CERTS} certs), "
+            f"synthesized for {len(syn_only)} LADs (no coverage)"
         )
     else:
         print(f"No EPC bulk file at {EPC_CSV} — using synthesized distribution for all LADs")

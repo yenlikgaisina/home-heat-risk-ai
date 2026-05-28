@@ -127,7 +127,8 @@ def build_feature_table() -> pd.DataFrame:
     cols = ["lad_code", "lad_name"] + FEATURES + [
         "sub_daytime_heat", "sub_nighttime_heat", "sub_warming_trend",
         "sub_housing_form", "sub_social_vuln", "sub_urban_density",
-        "overheating_risk_score", "risk_tier", "met_region", "epc_source",
+        "overheating_risk_score", "risk_tier", "met_region",
+        "epc_source", "epc_certificates",
     ]
     full = full[[c for c in cols if c in full.columns]]
     full.to_parquet(PROCESSED / "lad_risk_table.parquet", index=False)

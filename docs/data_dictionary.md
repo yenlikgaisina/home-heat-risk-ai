@@ -7,6 +7,7 @@
 | Met Office regional climate series | `https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets/{var}/date/{region}.txt` | Open Government Licence v3 |
 | NESO Carbon Intensity API | `https://api.carbonintensity.org.uk/...` | CC BY 4.0 |
 | ONS Census 2021 via NOMIS | `https://www.nomisweb.co.uk/api/v01/dataset/...` | Open Government Licence v3 |
+| MHCLG Domestic EPC bulk service | `https://epc.opendatacommunities.org/` | Custom — requires registration & licence acceptance, redistribution prohibited |
 
 ## Files written to `data/processed/`
 
@@ -50,9 +51,24 @@ Per-LAD wide-format housing layer assembled by `src/clean_epc.py`.
 | share_flats | Sum of purpose-built + converted + commercial flat shares |
 | share_owned, share_rented_private, share_rented_social | Tenure shares |
 | share_65plus | Population aged 65+ (when census_age.parquet present) |
-| epc_share_A … epc_share_G | **Synthesized** EPC distribution |
-| share_epc_d_or_worse | Synthesized — sum D+E+F+G |
-| epc_source | `"synthesized"` until real EPC data is provided |
+| epc_share_A … epc_share_G | EPC band shares (hybrid — see `epc_source`) |
+| share_epc_d_or_worse | Sum of D+E+F+G band shares |
+| epc_certificates | Number of real EPC certificates in the LAD after latest-per-UPRN dedup. `0` for LADs with no bulk coverage. |
+| epc_source | Provenance of the EPC distribution. See below. |
+
+#### `epc_source` values
+
+The EPC layer is **hybrid** — assembled per-LAD from one of three sources:
+
+| Value | Meaning |
+| --- | --- |
+| `real` | EPC bulk certificates from MHCLG, latest-per-UPRN deduped, with **≥ 500** certificates in the LAD. The empirical band distribution is used directly. |
+| `synthesized_fallback_low_coverage` | The LAD appears in the bulk file but has **< 500** certificates after dedup — the empirical distribution is too noisy to trust. A synthesised prior is used instead; `epc_certificates` reports the (small) real count for transparency. |
+| `synthesized` | The LAD is not covered by the EPC bulk service at all (Scotland and Northern Ireland). A synthesised prior is used; `epc_certificates = 0`. |
+
+The threshold lives in `src/clean_epc.py` as `MIN_REAL_EPC_CERTS = 500`. It is chosen so band-share sampling error stays under ~2 percentage points even for the smallest realistic band (~1 % A-rated stock).
+
+The synthesised prior starts from national EPC band proportions (MHCLG English Housing Survey-derived) and shifts mass between bands based on the LAD's flat share (flats lean more efficient) and private-rented share (PRS leans less efficient). The formula is in `synthesize_epc_distribution()`.
 
 ### `lad_risk_table.parquet`
 
