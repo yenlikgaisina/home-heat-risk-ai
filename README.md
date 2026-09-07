@@ -33,11 +33,13 @@ Home Heat Risk AI combines climate data, ONS Census housing indicators, real EPC
 ## Key outputs
 
 - Ranked 41 London and Nottingham-area local authorities by overheating vulnerability
-- - Built a hybrid EPC layer using real bulk data where coverage is sufficient and statistical fallbacks where it is not - documented transparently
-  - - Created a rules-based cooling recommendation engine covering shading, ventilation, and active cooling - not an LLM; rules are auditable
-    - - Trained a Random Forest model to explore which engineered features drive the risk tier, with model interpretability used for explanation rather than ground-truth validation
-      - - Included a responsible AI statement explaining that this is area-level risk estimation, not indoor-temperature prediction
+- Built a hybrid EPC layer using real bulk data where coverage is sufficient and statistical fallbacks where it is not
+- Created a rules-based cooling recommendation engine covering shading, ventilation and active cooling
+- Trained a Random Forest model to explore which engineered features drive the risk tier
+- Included a responsible AI statement explaining that this is area-level risk estimation, not indoor-temperature prediction
+
 ---
+
 ## What surprised me
 
 The highest-risk areas were not simply the warmest areas. Housing form, renting patterns, density, and EPC quality changed the picture significantly. Overheating risk is not only a weather problem - it is also a housing and inequality problem. Westminster and Haringey score highest not because they are the hottest, but because they combine high density, high flat share, and high private-rented tenure.
@@ -87,22 +89,22 @@ streamlit run app.py
 ## Roadmap
 
 - [ ] Add true HadUK-Grid daily 5km hot-day and tropical-night counts
-- [ ] - [ ] Add a choropleth map (built in notebook, omitted from live app for deployment weight)
-- [ ] - [ ] Validate risk scores against UKHSA heat-health indicators where available
-- [ ] - [ ] Expand from London + Nottingham to all England and Wales local authorities
-- [ ] - [ ] Add a test suite
+- [ ] Add a choropleth map
+- [ ] Validate risk scores against UKHSA heat-health indicators where available
+- [ ] Expand from London + Nottingham to all England and Wales local authorities
+- [ ] Add a test suite
 
-- [ ] ---
+---
 
-- [ ] ## Limitations
+## Limitations
 
-- [ ] - The EPC layer is hybrid: real bulk data for LADs with ≥ 500 certificates, synthesised priors for the rest
-- [ ] - No indoor temperature data - risk is an exposure proxy, not a verified overheating prediction
-- [ ] - ML model is trained on an index-derived target; it learns the index by construction and is used for interpretability, not ground-truth validation
-- [ ] - This is a portfolio project, not an operational tool - see `docs/responsible_ai_statement.md`
+- The EPC layer is hybrid: real bulk data for LADs with at least 500 certificates, synthesised priors for the rest
+- No indoor-temperature data: risk is an exposure proxy, not a verified overheating prediction
+- The ML model is trained on an index-derived target and is used for interpretability, not ground-truth validation
+- This is a portfolio project, not an operational tool. See `docs/responsible_ai_statement.md`
 
-- [ ] ---
+---
 
-- [ ] ## License
+## License
 
-- [ ] MIT for the code. Data licenses follow each upstream source - see `docs/data_dictionary.md`.
+MIT for the code. Data licences follow each upstream source, listed in `docs/data_dictionary.md`.
